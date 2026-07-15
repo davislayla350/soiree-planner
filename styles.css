@@ -322,6 +322,47 @@ body::before {
   line-height: 1.5;
 }
 
+.seating-card {
+  grid-column: 1 / -1;
+}
+
+.seating-chart {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+  gap: 14px;
+}
+
+.seating-table {
+  padding: 14px;
+  border: 1px solid rgba(93, 58, 46, 0.12);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.seating-table h3 {
+  margin: 0 0 12px;
+  font-size: 0.95rem;
+}
+
+.seat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.seat {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  min-width: 0;
+  border-radius: 999px;
+  border: 1px solid rgba(79, 27, 110, 0.16);
+  background: rgba(255, 248, 242, 0.86);
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
 .site-footer {
   margin-top: 28px;
   text-align: center;

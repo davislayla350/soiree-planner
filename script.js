@@ -1,4 +1,6 @@
 const GUEST_CAP = 120;
+const TABLE_COUNT = 15;
+const SEATS_PER_TABLE = 8;
 const DIETS = [
   { value: 'none', label: 'None' },
   { value: 'vegetarian', label: 'Vegetarian' },
@@ -41,6 +43,7 @@ const waitlistSection = document.getElementById('waitlist-section');
 const waitlistSummary = document.getElementById('waitlist-summary');
 const waitlistList = document.getElementById('waitlist-list');
 const drinkMenu = document.getElementById('drink-menu');
+const seatingChart = document.getElementById('seating-chart');
 const countdown = document.getElementById('countdown');
 const rsvpForm = document.getElementById('rsvp-form');
 const guestNameInput = document.getElementById('guest-name');
@@ -201,6 +204,32 @@ function renderDrinks() {
     .join('');
 }
 
+function renderSeatingChart() {
+  seatingChart.replaceChildren();
+
+  for (let tableNumber = 1; tableNumber <= TABLE_COUNT; tableNumber += 1) {
+    const table = document.createElement('article');
+    table.className = 'seating-table';
+
+    const title = document.createElement('h3');
+    title.textContent = `Table ${tableNumber}`;
+
+    const seats = document.createElement('div');
+    seats.className = 'seat-grid';
+
+    for (let seatNumber = 1; seatNumber <= SEATS_PER_TABLE; seatNumber += 1) {
+      const seat = document.createElement('span');
+      seat.className = 'seat empty-seat';
+      seat.textContent = seatNumber;
+      seat.setAttribute('aria-label', `Table ${tableNumber}, empty seat ${seatNumber}`);
+      seats.append(seat);
+    }
+
+    table.append(title, seats);
+    seatingChart.append(table);
+  }
+}
+
 function updateCountdown() {
   const now = new Date();
   const difference = openingNight - now;
@@ -227,5 +256,6 @@ rsvpForm.addEventListener('submit', handleSubmit);
 
 renderRsvps();
 renderDrinks();
+renderSeatingChart();
 updateCountdown();
 setInterval(updateCountdown, 1000);
