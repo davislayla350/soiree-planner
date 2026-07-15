@@ -1,0 +1,1 @@
+Add a footer to the homepage that says "Powered by Entire" and explain what files you changed.
