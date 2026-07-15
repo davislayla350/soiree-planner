@@ -68,6 +68,23 @@ function getConfirmedGuestCount() {
   return guests.reduce((total, guest) => total + getPartySize(guest), 0);
 }
 
+function getSeatingAssignments() {
+  return guests
+    .filter((guest) => guest.status === 'Attending')
+    .flatMap((guest) => {
+      const seats = [{ name: guest.name, diet: guest.diet }];
+
+      if (hasPlusOne(guest)) {
+        seats.push({
+          name: guest.plusOne.toLowerCase() === 'yes' ? `${guest.name}'s guest` : guest.plusOne,
+          diet: guest.plusOneDiet
+        });
+      }
+
+      return seats;
+    });
+}
+
 function createGuestRow(guest) {
   const row = document.createElement('div');
   row.className = 'guest-row';
@@ -127,6 +144,7 @@ function renderRsvps() {
   waitlistSummary.textContent = `${waitlist.length} waitlisted RSVP${waitlist.length === 1 ? '' : 's'} in signup order`;
   renderGuestRows(waitlist, waitlistList);
   renderDietSummary();
+  renderSeatingChart();
 }
 
 function renderDietSummary() {
@@ -205,6 +223,7 @@ function renderDrinks() {
 }
 
 function renderSeatingChart() {
+  const assignments = getSeatingAssignments();
   seatingChart.replaceChildren();
 
   for (let tableNumber = 1; tableNumber <= TABLE_COUNT; tableNumber += 1) {
@@ -218,10 +237,28 @@ function renderSeatingChart() {
     seats.className = 'seat-grid';
 
     for (let seatNumber = 1; seatNumber <= SEATS_PER_TABLE; seatNumber += 1) {
-      const seat = document.createElement('span');
-      seat.className = 'seat empty-seat';
-      seat.textContent = seatNumber;
-      seat.setAttribute('aria-label', `Table ${tableNumber}, empty seat ${seatNumber}`);
+      const assignmentIndex = (tableNumber - 1) * SEATS_PER_TABLE + seatNumber - 1;
+      const assignment = assignments[assignmentIndex];
+      const seat = document.createElement('div');
+      seat.className = `seat ${assignment ? 'occupied-seat' : 'empty-seat'}`;
+
+      if (assignment) {
+        const guestName = document.createElement('span');
+        guestName.className = 'seat-guest';
+        guestName.textContent = assignment.name;
+
+        const diet = getDietOption(assignment.diet);
+        const dietBadge = document.createElement('span');
+        dietBadge.className = `badge diet ${diet.value}`;
+        dietBadge.textContent = diet.label;
+
+        seat.setAttribute('aria-label', `Table ${tableNumber}, seat ${seatNumber}, ${assignment.name}, ${diet.label}`);
+        seat.append(guestName, dietBadge);
+      } else {
+        seat.textContent = seatNumber;
+        seat.setAttribute('aria-label', `Table ${tableNumber}, empty seat ${seatNumber}`);
+      }
+
       seats.append(seat);
     }
 
@@ -256,6 +293,5 @@ rsvpForm.addEventListener('submit', handleSubmit);
 
 renderRsvps();
 renderDrinks();
-renderSeatingChart();
 updateCountdown();
 setInterval(updateCountdown, 1000);
