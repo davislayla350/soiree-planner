@@ -1,8 +1,8 @@
 const guests = [
-  { name: 'Mina', status: 'Confirmed', plusOne: 'Theo' },
-  { name: 'Luca', status: 'Pending', plusOne: 'No' },
-  { name: 'Nia', status: 'Confirmed', plusOne: 'Jules' },
-  { name: 'Rafi', status: 'Coming', plusOne: 'Yes' }
+  { name: 'Mina', status: 'Attending', plusOne: 'Theo' },
+  { name: 'Luca', status: 'Regrets', plusOne: 'No' },
+  { name: 'Nia', status: 'Attending', plusOne: 'Jules' },
+  { name: 'Rafi', status: 'Attending', plusOne: 'Yes' }
 ];
 
 const drinks = [
@@ -27,6 +27,10 @@ const openingNight = new Date('2026-08-21T19:00:00');
 const guestList = document.getElementById('guest-list');
 const drinkMenu = document.getElementById('drink-menu');
 const countdown = document.getElementById('countdown');
+const rsvpForm = document.getElementById('rsvp-form');
+const guestNameInput = document.getElementById('guest-name');
+const guestStatusInput = document.getElementById('guest-status');
+const guestPlusOneInput = document.getElementById('guest-plus-one');
 
 function renderGuests() {
   guestList.innerHTML = guests
@@ -36,12 +40,31 @@ function renderGuests() {
           <div class="guest-name">${guest.name}</div>
           <div class="guest-meta">
             <span class="badge status">${guest.status}</span>
-            <span class="badge plus-one">Plus-one: ${guest.plusOne}</span>
+            <span class="badge plus-one">Plus-one: ${guest.plusOne || 'No'}</span>
           </div>
         </div>
       `
     )
     .join('');
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+
+  const newGuest = {
+    name: guestNameInput.value.trim(),
+    status: guestStatusInput.value,
+    plusOne: guestPlusOneInput.value.trim() || 'No'
+  };
+
+  if (!newGuest.name) {
+    return;
+  }
+
+  guests.unshift(newGuest);
+  renderGuests();
+  rsvpForm.reset();
+  guestNameInput.focus();
 }
 
 function renderDrinks() {
@@ -78,6 +101,8 @@ function updateCountdown() {
     <span>${seconds}s</span>
   `;
 }
+
+rsvpForm.addEventListener('submit', handleSubmit);
 
 renderGuests();
 renderDrinks();

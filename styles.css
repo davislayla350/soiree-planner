@@ -121,6 +121,38 @@ body::before {
   color: var(--muted);
 }
 
+.rsvp-form {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.rsvp-form label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.rsvp-form input,
+.rsvp-form select,
+.rsvp-form button {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(93, 58, 46, 0.16);
+  font: inherit;
+}
+
+.rsvp-form button {
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: white;
+  font-weight: 700;
+}
+
 .guest-list {
   display: grid;
   gap: 12px;
