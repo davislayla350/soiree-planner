@@ -25,6 +25,7 @@ const drinks = [
 
 const openingNight = new Date('2026-08-21T19:00:00');
 const guestList = document.getElementById('guest-list');
+const guestSummary = document.getElementById('guest-summary');
 const drinkMenu = document.getElementById('drink-menu');
 const countdown = document.getElementById('countdown');
 const rsvpForm = document.getElementById('rsvp-form');
@@ -33,19 +34,35 @@ const guestStatusInput = document.getElementById('guest-status');
 const guestPlusOneInput = document.getElementById('guest-plus-one');
 
 function renderGuests() {
-  guestList.innerHTML = guests
-    .map(
-      (guest) => `
-        <div class="guest-row">
-          <div class="guest-name">${guest.name}</div>
-          <div class="guest-meta">
-            <span class="badge status">${guest.status}</span>
-            <span class="badge plus-one">Plus-one: ${guest.plusOne || 'No'}</span>
-          </div>
-        </div>
-      `
-    )
-    .join('');
+  const attending = guests.filter((guest) => guest.status === 'Attending').length;
+  const regrets = guests.length - attending;
+  guestSummary.textContent = `${attending} attending / ${regrets} regrets`;
+
+  guestList.replaceChildren();
+
+  guests.forEach((guest) => {
+    const row = document.createElement('div');
+    row.className = 'guest-row';
+
+    const name = document.createElement('div');
+    name.className = 'guest-name';
+    name.textContent = guest.name;
+
+    const meta = document.createElement('div');
+    meta.className = 'guest-meta';
+
+    const status = document.createElement('span');
+    status.className = `badge status ${guest.status.toLowerCase()}`;
+    status.textContent = guest.status;
+
+    const plusOne = document.createElement('span');
+    plusOne.className = 'badge plus-one';
+    plusOne.textContent = `Plus-one: ${guest.plusOne || 'No'}`;
+
+    meta.append(status, plusOne);
+    row.append(name, meta);
+    guestList.append(row);
+  });
 }
 
 function handleSubmit(event) {
@@ -54,7 +71,7 @@ function handleSubmit(event) {
   const newGuest = {
     name: guestNameInput.value.trim(),
     status: guestStatusInput.value,
-    plusOne: guestPlusOneInput.value.trim() || 'No'
+    plusOne: guestPlusOneInput.value.trim()
   };
 
   if (!newGuest.name) {

@@ -1,13 +1,13 @@
 :root {
   color-scheme: dark;
-  --bg: #17111d;
-  --bg-accent: #5d3a2e;
-  --card: rgba(255, 244, 228, 0.92);
-  --text: #2d1f1b;
-  --muted: #6c5146;
-  --accent: #ff8b3d;
-  --accent-strong: #e65b2f;
-  --border: rgba(93, 58, 46, 0.15);
+  --bg: #140a2b;
+  --bg-accent: #ff5ea8;
+  --card: rgba(255, 248, 242, 0.95);
+  --text: #2f1c3f;
+  --muted: #6f4b72;
+  --accent: #ff5ea8;
+  --accent-strong: #ff7a00;
+  --border: rgba(79, 27, 110, 0.16);
 }
 
 * {
@@ -20,8 +20,9 @@ body {
   min-height: 100vh;
   color: var(--text);
   background:
-    radial-gradient(circle at top, rgba(255, 184, 77, 0.23), transparent 30%),
-    linear-gradient(135deg, #1d1323 0%, #4d2d2a 45%, #bb6d3f 100%);
+    radial-gradient(circle at top left, rgba(255, 94, 168, 0.3), transparent 26%),
+    radial-gradient(circle at bottom right, rgba(255, 122, 0, 0.22), transparent 24%),
+    linear-gradient(135deg, #0d0720 0%, #3a1260 45%, #ff7a00 100%);
 }
 
 body::before {
@@ -29,15 +30,10 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background-image: linear-gradient(
-      0deg,
-      transparent 0,
-      transparent 60%,
-      rgba(255, 255, 255, 0.05) 60%,
-      rgba(255, 255, 255, 0.05) 100%
-    ),
-    radial-gradient(circle, rgba(255, 238, 180, 0.35) 0 5px, transparent 6px);
-  background-size: auto, 20px 20px;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.22) 0 5px, transparent 6px),
+    linear-gradient(90deg, transparent 0, transparent 70%, rgba(255, 255, 255, 0.08) 70%, rgba(255, 255, 255, 0.08) 100%);
+  background-size: 18px 18px, 24px 24px;
   mix-blend-mode: screen;
   opacity: 0.35;
 }
@@ -59,21 +55,24 @@ body::before {
   text-transform: uppercase;
   letter-spacing: 0.24em;
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: 800;
   margin: 0 0 8px;
-  color: #f7c966;
+  color: #ff5ea8;
 }
 
 .hero h1 {
   margin: 0;
   font-size: clamp(2.2rem, 4vw, 3.2rem);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .hero-copy {
   margin: 10px auto 0;
   max-width: 660px;
   font-size: 1rem;
-  color: rgba(255, 248, 235, 0.9);
+  color: rgba(255, 248, 235, 0.95);
+  text-shadow: 0 0 14px rgba(255, 94, 168, 0.35);
 }
 
 .content-grid {
@@ -86,7 +85,7 @@ body::before {
   border: 1px solid var(--border);
   border-radius: 24px;
   padding: 24px;
-  box-shadow: 0 18px 40px rgba(25, 12, 8, 0.2);
+  box-shadow: 0 16px 36px rgba(20, 10, 43, 0.2);
   backdrop-filter: blur(8px);
 }
 
@@ -114,6 +113,7 @@ body::before {
   border-radius: 14px;
   min-width: 88px;
   text-align: center;
+  box-shadow: 0 8px 18px rgba(255, 94, 168, 0.2);
 }
 
 .countdown-note {
@@ -150,6 +150,13 @@ body::before {
   cursor: pointer;
   background: linear-gradient(135deg, var(--accent), var(--accent-strong));
   color: white;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(255, 94, 168, 0.2);
+}
+
+.guest-summary {
+  margin: 0 0 12px;
+  color: var(--muted);
   font-weight: 700;
 }
 
@@ -191,6 +198,11 @@ body::before {
   color: #693d1a;
 }
 
+.badge.status.regrets {
+  background: #eadff5;
+  color: #5b3d72;
+}
+
 .badge.plus-one {
   background: #fde4c8;
   color: #905130;
@@ -204,7 +216,7 @@ body::before {
 .drink-card {
   padding: 14px 16px;
   border-radius: 18px;
-  background: linear-gradient(135deg, rgba(255, 248, 238, 0.95), rgba(255, 230, 193, 0.95));
+  background: linear-gradient(135deg, rgba(255, 248, 238, 0.95), rgba(255, 214, 241, 0.95));
   border: 1px solid rgba(93, 58, 46, 0.12);
 }
 

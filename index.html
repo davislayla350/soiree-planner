@@ -15,10 +15,10 @@
   <body>
     <div class="page-shell">
       <header class="hero">
-        <p class="eyebrow">Summer soirée • 3 nights • Golden hour</p>
+        <p class="eyebrow">Y2K soirée • 3 nights • Glitter glow</p>
         <h1>Soirée Planner</h1>
         <p class="hero-copy">
-          A sun-drenched weekend of candlelight, laughter, and a little sparkle.
+          A glossy, neon-lit weekend of sparkle, spice, and late-night drama.
         </p>
       </header>
 
@@ -26,7 +26,7 @@
         <section class="card countdown-card">
           <div class="card-heading">
             <p class="section-label">Countdown</p>
-            <h2>Opening night is almost here</h2>
+            <h2>Opening night is almost here, babe</h2>
           </div>
           <div id="countdown" class="countdown" aria-live="polite">
             Loading the glow...
@@ -37,18 +37,25 @@
         <section class="card guest-card">
           <div class="card-heading">
             <p class="section-label">Guest list</p>
-            <h2>Friends gathering for the weekend</h2>
+            <h2>The guest list is getting glossy</h2>
           </div>
 
           <form id="rsvp-form" class="rsvp-form">
             <label>
               Name
-              <input type="text" id="guest-name" name="guestName" required />
+              <input
+                type="text"
+                id="guest-name"
+                name="guestName"
+                autocomplete="name"
+                placeholder="Your name"
+                required
+              />
             </label>
 
             <label>
               Attendance
-              <select id="guest-status" name="guestStatus">
+              <select id="guest-status" name="guestStatus" required>
                 <option value="Attending">Attending</option>
                 <option value="Regrets">Regrets</option>
               </select>
@@ -56,19 +63,26 @@
 
             <label>
               Plus-one
-              <input type="text" id="guest-plus-one" name="guestPlusOne" placeholder="Optional" />
+              <input
+                type="text"
+                id="guest-plus-one"
+                name="guestPlusOne"
+                autocomplete="off"
+                placeholder="Optional guest name"
+              />
             </label>
 
             <button type="submit">Add RSVP</button>
           </form>
 
+          <p id="guest-summary" class="guest-summary" aria-live="polite"></p>
           <div id="guest-list" class="guest-list"></div>
         </section>
 
         <section class="card menu-card">
           <div class="card-heading">
             <p class="section-label">Signature drinks</p>
-            <h2>One delicious sip for each night</h2>
+            <h2>One iconic sip for each night</h2>
           </div>
           <div id="drink-menu" class="drink-menu"></div>
         </section>
