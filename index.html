@@ -72,6 +72,26 @@
               />
             </label>
 
+            <label>
+              Dietary preference
+              <select id="guest-diet" name="guestDiet" required>
+                <option value="none">None</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="vegan">Vegan</option>
+                <option value="gluten-free">Gluten-free</option>
+              </select>
+            </label>
+
+            <label>
+              Plus-one dietary preference
+              <select id="guest-plus-one-diet" name="guestPlusOneDiet" required>
+                <option value="none">None</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="vegan">Vegan</option>
+                <option value="gluten-free">Gluten-free</option>
+              </select>
+            </label>
+
             <div class="form-actions">
               <button type="submit">Add RSVP</button>
               <button type="reset" class="secondary-button">Reset</button>
@@ -79,6 +99,13 @@
           </form>
 
           <p id="guest-summary" class="guest-summary" aria-live="polite"></p>
+          <section class="diet-summary" aria-labelledby="diet-summary-title">
+            <div class="diet-summary-heading">
+              <p class="section-label">Caterer counts</p>
+              <h3 id="diet-summary-title">Dietary preferences for Thursday</h3>
+            </div>
+            <div id="diet-summary" class="diet-summary-list" aria-live="polite"></div>
+          </section>
           <div id="guest-list" class="guest-list"></div>
 
           <section id="waitlist-section" class="waitlist-section" hidden>

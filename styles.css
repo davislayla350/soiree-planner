@@ -225,6 +225,65 @@ body::before {
   color: #905130;
 }
 
+.badge.diet.none {
+  background: #e8edf0;
+  color: #46565e;
+}
+
+.badge.diet.vegetarian {
+  background: #cfeecf;
+  color: #276329;
+}
+
+.badge.diet.vegan {
+  background: #bfe8d0;
+  color: #1d6648;
+}
+
+.badge.diet.gluten-free {
+  background: #d8e4ff;
+  color: #31508a;
+}
+
+.diet-summary {
+  margin: 0 0 18px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.44);
+}
+
+.diet-summary-heading {
+  margin-bottom: 12px;
+}
+
+.diet-summary-heading h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.diet-summary-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+  gap: 10px;
+}
+
+.diet-count {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.66);
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.diet-count strong {
+  color: var(--text);
+}
+
 .waitlist-section {
   margin-top: 20px;
   padding-top: 18px;

@@ -1,10 +1,16 @@
 const GUEST_CAP = 120;
+const DIETS = [
+  { value: 'none', label: 'None' },
+  { value: 'vegetarian', label: 'Vegetarian' },
+  { value: 'vegan', label: 'Vegan' },
+  { value: 'gluten-free', label: 'Gluten-free' }
+];
 
 const guests = [
-  { name: 'Mina', status: 'Attending', plusOne: 'Theo' },
-  { name: 'Luca', status: 'Regrets', plusOne: 'No' },
-  { name: 'Nia', status: 'Attending', plusOne: 'Jules' },
-  { name: 'Rafi', status: 'Attending', plusOne: 'Yes' }
+  { name: 'Mina', status: 'Attending', plusOne: 'Theo', diet: 'vegetarian', plusOneDiet: 'none' },
+  { name: 'Luca', status: 'Regrets', plusOne: 'No', diet: 'none', plusOneDiet: 'none' },
+  { name: 'Nia', status: 'Attending', plusOne: 'Jules', diet: 'vegan', plusOneDiet: 'vegetarian' },
+  { name: 'Rafi', status: 'Attending', plusOne: 'Yes', diet: 'gluten-free', plusOneDiet: 'gluten-free' }
 ];
 
 const waitlist = [];
@@ -30,6 +36,7 @@ const drinks = [
 const openingNight = new Date('2026-08-21T19:00:00');
 const guestList = document.getElementById('guest-list');
 const guestSummary = document.getElementById('guest-summary');
+const dietSummary = document.getElementById('diet-summary');
 const waitlistSection = document.getElementById('waitlist-section');
 const waitlistSummary = document.getElementById('waitlist-summary');
 const waitlistList = document.getElementById('waitlist-list');
@@ -39,6 +46,12 @@ const rsvpForm = document.getElementById('rsvp-form');
 const guestNameInput = document.getElementById('guest-name');
 const guestStatusInput = document.getElementById('guest-status');
 const guestPlusOneInput = document.getElementById('guest-plus-one');
+const guestDietInput = document.getElementById('guest-diet');
+const guestPlusOneDietInput = document.getElementById('guest-plus-one-diet');
+
+function getDietOption(value) {
+  return DIETS.find((diet) => diet.value === value) || DIETS[0];
+}
 
 function hasPlusOne(guest) {
   return guest.plusOne && guest.plusOne.toLowerCase() !== 'no';
@@ -71,7 +84,21 @@ function createGuestRow(guest) {
   plusOne.className = 'badge plus-one';
   plusOne.textContent = `Plus-one: ${guest.plusOne || 'No'}`;
 
-  meta.append(status, plusOne);
+  const diet = getDietOption(guest.diet);
+  const dietBadge = document.createElement('span');
+  dietBadge.className = `badge diet ${diet.value}`;
+  dietBadge.textContent = `Diet: ${diet.label}`;
+
+  meta.append(status, plusOne, dietBadge);
+
+  if (hasPlusOne(guest)) {
+    const plusOneDiet = getDietOption(guest.plusOneDiet);
+    const plusOneDietBadge = document.createElement('span');
+    plusOneDietBadge.className = `badge diet ${plusOneDiet.value}`;
+    plusOneDietBadge.textContent = `Plus-one diet: ${plusOneDiet.label}`;
+    meta.append(plusOneDietBadge);
+  }
+
   row.append(name, meta);
 
   return row;
@@ -96,6 +123,38 @@ function renderRsvps() {
   waitlistSection.hidden = waitlist.length === 0;
   waitlistSummary.textContent = `${waitlist.length} waitlisted RSVP${waitlist.length === 1 ? '' : 's'} in signup order`;
   renderGuestRows(waitlist, waitlistList);
+  renderDietSummary();
+}
+
+function renderDietSummary() {
+  const counts = DIETS.reduce((summary, diet) => {
+    summary[diet.value] = 0;
+    return summary;
+  }, {});
+
+  guests
+    .filter((guest) => guest.status === 'Attending')
+    .forEach((guest) => {
+      counts[getDietOption(guest.diet).value] += 1;
+      if (hasPlusOne(guest)) {
+        counts[getDietOption(guest.plusOneDiet).value] += 1;
+      }
+    });
+
+  dietSummary.replaceChildren();
+  DIETS.forEach((diet) => {
+    const item = document.createElement('div');
+    item.className = `diet-count ${diet.value}`;
+
+    const label = document.createElement('span');
+    label.textContent = diet.label;
+
+    const count = document.createElement('strong');
+    count.textContent = counts[diet.value];
+
+    item.append(label, count);
+    dietSummary.append(item);
+  });
 }
 
 function handleSubmit(event) {
@@ -104,7 +163,9 @@ function handleSubmit(event) {
   const newGuest = {
     name: guestNameInput.value.trim(),
     status: guestStatusInput.value,
-    plusOne: guestPlusOneInput.value.trim()
+    plusOne: guestPlusOneInput.value.trim(),
+    diet: guestDietInput.value,
+    plusOneDiet: guestPlusOneDietInput.value
   };
 
   if (!newGuest.name) {
