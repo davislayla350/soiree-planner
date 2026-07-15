@@ -215,9 +215,29 @@ body::before {
   color: #5b3d72;
 }
 
+.badge.status.waitlisted {
+  background: #f5c9df;
+  color: #7b2550;
+}
+
 .badge.plus-one {
   background: #fde4c8;
   color: #905130;
+}
+
+.waitlist-section {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+
+.waitlist-heading {
+  margin-bottom: 12px;
+}
+
+.waitlist-heading h3 {
+  margin: 0;
+  font-size: 1rem;
 }
 
 .drink-menu {
