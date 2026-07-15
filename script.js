@@ -84,6 +84,10 @@ function handleSubmit(event) {
   guestNameInput.focus();
 }
 
+rsvpForm.addEventListener('reset', () => {
+  guestNameInput.focus();
+});
+
 function renderDrinks() {
   drinkMenu.innerHTML = drinks
     .map(

@@ -146,12 +146,24 @@ body::before {
   font: inherit;
 }
 
+.form-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .rsvp-form button {
   cursor: pointer;
   background: linear-gradient(135deg, var(--accent), var(--accent-strong));
   color: white;
   font-weight: 700;
   box-shadow: 0 8px 18px rgba(255, 94, 168, 0.2);
+}
+
+.rsvp-form .secondary-button {
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--text);
+  box-shadow: none;
 }
 
 .guest-summary {
