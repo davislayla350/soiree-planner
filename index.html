@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Soirée Planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">Summer soirée • 3 nights • Golden hour</p>
+        <h1>Soirée Planner</h1>
+        <p class="hero-copy">
+          A sun-drenched weekend of candlelight, laughter, and a little sparkle.
+        </p>
+      </header>
+
+      <main class="content-grid">
+        <section class="card countdown-card">
+          <div class="card-heading">
+            <p class="section-label">Countdown</p>
+            <h2>Opening night is almost here</h2>
+          </div>
+          <div id="countdown" class="countdown" aria-live="polite">
+            Loading the glow...
+          </div>
+          <p class="countdown-note">Golden hour begins at sunset on our first evening.</p>
+        </section>
+
+        <section class="card guest-card">
+          <div class="card-heading">
+            <p class="section-label">Guest list</p>
+            <h2>Friends gathering for the weekend</h2>
+          </div>
+          <div id="guest-list" class="guest-list"></div>
+        </section>
+
+        <section class="card menu-card">
+          <div class="card-heading">
+            <p class="section-label">Signature drinks</p>
+            <h2>One delicious sip for each night</h2>
+          </div>
+          <div id="drink-menu" class="drink-menu"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
