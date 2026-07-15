@@ -1,4 +1,4 @@
-##Challenge 1: The Golden Hour Opening 🥂✨ [Entire]
+## Challenge 1: The Golden Hour Opening 🥂✨ [Entire]
 Day 1: The Golden Hour Opening 🥂✨
 Welcome, AI Engineer
 The Summer Soirée opens in three days — three nights of string lights, signature drinks, and a lawn full of guests — and host Marisol has called the crew together for one last planning meeting.
